@@ -2,7 +2,7 @@
 /*
  * Plugin Name: Advanced Pricing Table
  * Description: Pricing table for wordpress, easy to use, user friendly and highly customizable
- * Plugin URI: http://cybercraftit.com/
+ * Plugin URI:
  * Author URI: http://cybercraftit.com/
  * Author: Cybercraft
  * Text Domain: WPPT
