@@ -1,4 +1,4 @@
-=== WP Pricing Table ===
+=== Advanced Pricing Table ===
 Contributors: mithublue,cybercraftit
 Tags:
 Requires at least: 3.0.1
