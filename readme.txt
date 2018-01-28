@@ -1,6 +1,6 @@
 === Advanced Pricing Table ===
 Contributors: mithublue,cybercraftit
-Tags:
+Tags: Pricing table, wp pricing table, customized pricing table, pricing, table, nice pricing table, awesome, advanced, options, compare, multi themes, live pricing table, live customize, real time, pricing table
 Requires at least: 3.0.1
 Tested up to: 4.9.2
 Stable tag: 1.0
