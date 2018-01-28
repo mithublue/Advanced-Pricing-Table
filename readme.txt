@@ -15,17 +15,28 @@ Manage and build your pricing tables with live editing. Highly customizable and 
 
 = Features =
 
+* You can build your pricing tables live.
+* Easy to customize
+* Easily extendable
+* Multiple themese.
+* Changing themes does not loose your data
+* You can build as many tables as you want, no limit
+* And many more
+
+
 == Installation ==
 
 This section describes how to install the plugin and get it working.
 
-e.g.
-
-1. Upload `wp-pricing-table` to the `/wp-content/plugins/` directory
+1. Upload `advanced-pricing-table` to the `/advanced-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 
  
 == Screenshots ==
+
+1. screenshot-1
+2. screenshot-2
+3. screenshot-3
 
 
 == Changelog ==
