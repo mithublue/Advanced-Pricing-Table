@@ -51,8 +51,8 @@
   align-items: stretch;
   text-align: center;
   /*-webkit-flex: 0 1 330px;*/
-  -webkit-flex: 0 1 23%;
-  flex: 0 1 23%;
+  -webkit-flex: 0 1 48%;
+  flex: 0 1 48%;
 }
 .pricing__sentence{
   font-size: 16px;
@@ -74,15 +74,23 @@
     outline: none;
   }
 }
-
+.pricing--inner_item{
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  -webkit-box-align: stretch;
+}
 
 /* Individual styles */
 
 /* Sonam */
 .pricing--sonam {
   .pricing__item {
-    margin: 16px;
-    padding: 32px;
+    .pricing--inner_item{
+      padding: 32px;
+    }
+    margin: 16px 1%;
     cursor: default;
     border-radius: 10px;
     background: #1F1F1F;

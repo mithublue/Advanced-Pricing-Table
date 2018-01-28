@@ -1,14 +1,41 @@
 var eventBus = new Vue();
 Vue.component( 'pricing_table_panel', {
    template: '#pricing_table_panel',
+    props: ['settings_data'],
+    data: function () {
+        return {
+            settings_alt: {
+                s: {
+                    spacing: 10,
+                    col_width: 330
+                }
+            }
+        }
+    },
+    computed: {
+       settings: function () {
+           if( this.settings_data ) {
+               return this.settings_data;
+           }
+       }
+    },
     methods: {
+       change_settings: function () {
+           eventBus.$emit( 'event_change_settings',  this.settings );
+       },
         add_table: function () {
             eventBus.$emit( 'event_add_table', 1 );
         }
+    },
+    mounted: function () {
+        this.change_settings();
     }
 });
 
 var template_data_1 = {
+    settings: {
+
+    },
     removable_table: '',
     editing_id: '',
     property_hover: false,
@@ -350,7 +377,36 @@ var template_methods_1 = {
         var date = new Date();
         var table_template = this.generate_table_template();
         Vue.set( this.tbl_data, 'id-' + date.getTime(), table_template );
+    },
+    change_settings: function ( settings ) {
+        this.settings = settings;
     }
+};
+
+var template_computed_property_1 = {
+    t_data: function () {
+        if( this.tables ) {
+            return this.tbl_data;
+            //return this.tables;
+        } else {
+            return this.demo;
+        }
+    },
+    pricing_item_style: function () {
+      if( typeof this.settings.s != 'undefined' ) {
+          return {
+              'margin-right' : ( this.settings.s.spacing / 2 ) + 'px',
+              'margin-left' : ( this.settings.s.spacing / 2 ) + 'px',
+              'flex': '0 1 ' + this.settings.s.col_width + 'px',
+              '-webkit-flex': '0 1 ' + this.settings.s.col_width + 'px'
+          }
+      }
+    },
+};
+
+var functions_on_create = function(_this) {
+    eventBus.$on( 'event_add_table', _this.add_table );
+    eventBus.$on( 'event_change_settings', _this.change_settings );
 }
 
 Vue.component( 'wppt_sonam', {
@@ -359,22 +415,11 @@ Vue.component( 'wppt_sonam', {
     data: function () {
         return template_data_1;
     },
-    computed: {
-        t_data: function () {
-            if( this.tables ) {
-                return this.tbl_data;
-                //return this.tables;
-            } else {
-                return this.demo;
-            }
-        }
-    },
+    computed: template_computed_property_1,
     methods: template_methods_1,
     created: function () {
         this.tbl_data = this.tables;
-
-        //events
-        eventBus.$on( 'event_add_table', this.add_table );
+        functions_on_create(this);
     }
 });
 
@@ -384,22 +429,12 @@ Vue.component( 'wppt_jinpa', {
     data: function () {
         return template_data_1;
     },
-    computed: {
-        t_data: function () {
-            if( this.tables ) {
-                return this.tbl_data;
-                //return this.tables;
-            } else {
-                return this.demo;
-            }
-        }
-    },
+    computed: template_computed_property_1,
     methods: template_methods_1,
     created: function () {
         this.tbl_data = this.tables;
 
-        //events
-        eventBus.$on( 'event_add_table', this.add_table );
+        functions_on_create(this);
     }
 });
 Vue.component( 'wppt_tenzin', {
@@ -408,22 +443,12 @@ Vue.component( 'wppt_tenzin', {
     data: function () {
         return template_data_1;
     },
-    computed: {
-        t_data: function () {
-            if( this.tables ) {
-                return this.tbl_data;
-                //return this.tables;
-            } else {
-                return this.demo;
-            }
-        }
-    },
+    computed: template_computed_property_1,
     methods: template_methods_1,
     created: function () {
         this.tbl_data = this.tables;
 
-        //events
-        eventBus.$on( 'event_add_table', this.add_table );
+        functions_on_create(this);
     }
 });
 Vue.component( 'wppt_yama', {
@@ -432,21 +457,11 @@ Vue.component( 'wppt_yama', {
     data: function () {
         return template_data_1;
     },
-    computed: {
-        t_data: function () {
-            if( this.tables ) {
-                return this.tbl_data;
-                //return this.tables;
-            } else {
-                return this.demo;
-            }
-        }
-    },
+    computed: template_computed_property_1,
     methods: template_methods_1,
     created: function () {
         this.tbl_data = this.tables;
 
-        //events
-        eventBus.$on( 'event_add_table', this.add_table );
+        functions_on_create(this);
     }
 });

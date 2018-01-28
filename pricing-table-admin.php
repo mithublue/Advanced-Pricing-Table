@@ -35,8 +35,16 @@ class WPPT_Pricing_Table_Admin {
     public function add_custom_meta_boxes( $post_type, $post) {
         if( $post_type != 'wppt_pricing_table' ) return;
         add_meta_box(
+            'wppt-shortcode',
+            __( 'Shortcode', 'wppt' ),
+            array( $this, 'render_shortcode' ),
+            $post_type,
+            'normal',
+            'default'
+        );
+        add_meta_box(
             'wppt-table-template-list',
-            __( 'Templates' ),
+            __( 'Templates', 'wppt' ),
             array( $this, 'render_pricing_table_template_list' ),
             $post_type,
             'normal',
@@ -44,12 +52,24 @@ class WPPT_Pricing_Table_Admin {
         );
         add_meta_box(
             'wppt-table-settings',
-            __( 'Pricing Table' ),
+            __( 'Pricing Table', 'wppt' ),
             array( $this, 'render_pricing_table_panel' ),
             $post_type,
             'normal',
             'default'
         );
+    }
+    public function render_shortcode( $post, $metabox ) {
+        ?>
+        <div>
+            <?php _e( 'Paste this following shortcode in editor', 'wppt' ); ?>
+            <input type="text" readonly value="[wppt_pricing_table id='<?php echo $post->ID; ?>']"><br>
+            <?php
+            _e( 'Or, place this following shortcode inside your php file inside php tags');
+            ?>
+            <input type="text" readonly value="do_shortcode( '[wppt_pricing_table id=<?php echo $post->ID; ?>]')"><br>
+        </div>
+        <?php
     }
 
     public function render_pricing_table_template_list( $post, $metabox ) {
@@ -64,12 +84,11 @@ class WPPT_Pricing_Table_Admin {
     }
 
     public function render_pricing_table_panel( $post, $metabox ) {
-
         ?>
         <input type="hidden" name="wppt_pricing_table_data" v-model="wppt_pricing_table_data">
         <div id="wppt-pricing-table-panel">
             <h1>Pricing table data</h1>
-            <pricing_table_panel></pricing_table_panel>
+            <pricing_table_panel :settings_data="d.settings"></pricing_table_panel>
             <wppt_sonam v-if="d.template == 'wppt_sonam'" :tables.sync="d.tables"></wppt_sonam>
             <wppt_jinpa v-if="d.template == 'wppt_jinpa'" :tables.sync="d.tables"></wppt_jinpa>
             <wppt_tenzin v-if="d.template == 'wppt_tenzin'" :tables.sync="d.tables"></wppt_tenzin>
@@ -95,7 +114,7 @@ class WPPT_Pricing_Table_Admin {
     }
 
     public function save_post_data( $post_id ) {
-        if( is_string( $_POST['wppt_pricing_table_data'] ) && isset( $_POST['wppt_pricing_table_data'] ) ) {
+        if( isset( $_POST['wppt_pricing_table_data'] ) && is_string( $_POST['wppt_pricing_table_data'] ) ) {
             $wppt_pricing_table_data = $_POST['wppt_pricing_table_data'];
             //pri();
             $wppt_pricing_table_data = base64_encode(($wppt_pricing_table_data));

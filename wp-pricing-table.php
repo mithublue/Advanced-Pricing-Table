@@ -56,17 +56,21 @@ class WPPT_Init {
      */
     protected function __construct() {
         add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts_styles' ) );
+        add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts_styles' ) );
         $this->includes();
     }
 
     public function includes() {
         include_once 'register-data.php';
+        include_once 'pricing-table-data.php';
         include_once 'pricing-table-admin.php';
+        include_once 'shortcode.php';
         include_once 'more-products.php';
     }
 
     public function admin_enqueue_scripts_styles( $hook ) {
         global $pagenow;
+        if( get_post_type() != 'wppt_pricing_table' )return;
 
         if( in_array( $pagenow, array( 'post.php', 'post-new.php' ) ) ) {
             wp_enqueue_style( 'temp-demo', WPPT_ASSET_PATH.'/css/demo.css' );
@@ -83,6 +87,18 @@ class WPPT_Init {
             wp_enqueue_script( 'wppt-pricing-templates-js', WPPT_ASSET_PATH.'/js/pricing-templates.js', array( 'jquery', 'wppt-vue' ), false, true );
             wp_enqueue_script( 'wppt-admin-js', WPPT_ASSET_PATH.'/js/admin.js', array( 'jquery', 'wppt-vue' ), false, true );
         }
+    }
+
+    public function wp_enqueue_scripts_styles( $hook ) {
+        wp_register_style( 'temp-component', WPPT_ASSET_PATH.'/css/pricing-templates.css' );
+
+        if( WPPT_ENV == 'production' ) {
+            wp_register_script( 'wppt-vue', WPPT_ASSET_PATH.'/js/vue.min.js', array(), false, true );
+        } else {
+            wp_register_script( 'wppt-vue', WPPT_ASSET_PATH.'/js/vue.js', array(), false, true );
+        }
+        wp_register_script( 'wppt-pricing-templates-js', WPPT_ASSET_PATH.'/js/pricing-templates.js', array( 'jquery', 'wppt-vue' ), false, true );
+        wp_register_script( 'wppt-public-js', WPPT_ASSET_PATH.'/js/public.js', array( 'jquery', 'wppt-vue' ), false, true );
     }
 }
 
