@@ -11,8 +11,6 @@ Manage and build your pricing tables with live editing. Highly customizable and 
 
 == Description ==
 
-= Our Official Support Forum =
-
 = Features =
 
 * You can build your pricing tables live.
